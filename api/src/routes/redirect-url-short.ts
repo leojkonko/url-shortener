@@ -11,24 +11,25 @@ export async function redirectURLShort(app: FastifyInstance) {
     {
       schema: {
         params: z.object({
-          shortCode: z.string().uuid(),
+          shortCode: z.string(),
         }),
       },
     },
     async (request, reply) => {
       const { shortCode } = request.params;
 
-      // Busca a URL original no banco de dados
       const urlEntry = await prisma.url.findUnique({
-        where: { shortCode },
+        where: { shortCode: shortCode },
       });
 
       if (!urlEntry) {
-        return reply.status(404).send({ error: "URL not found" });
+        return reply.status(404).send({ error: "URL not found in DB" });
       }
 
-      // Redireciona para a URL original
-      return reply.redirect(urlEntry.originalUrl);
+      // return reply.redirect(urlEntry.originalUrl);
+      return {
+        originalUrl: urlEntry.originalUrl,
+      };
     }
   );
 }
