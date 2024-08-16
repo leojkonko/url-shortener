@@ -21,18 +21,32 @@ export async function createURLShort(app: FastifyInstance) {
     async (request) => {
       const { originalUrl } = request.body;
       const shortCode = generateShortCode();
+      try {
+        const newUrl = await prisma.url.create({
+          data: {
+            originalUrl,
+            shortCode,
+          },
+        });
 
-      const newUrl = await prisma.url.create({
-        data: {
-          originalUrl,
-          shortCode,
-        },
-      });
+        return {
+          originalUrl: newUrl.originalUrl,
+          shortUrl: `http://localhost:3333/${newUrl.shortCode}`,
+        };
+      } catch (error) {
+        const existingEntry = await prisma.url.findUnique({
+          where: { shortCode },
+        });
 
-      return {
-        originalUrl: newUrl.originalUrl,
-        shortUrl: `http://localhost:3333/${newUrl.shortCode}`,
-      };
+        if (existingEntry) {
+          return {
+            originalUrl: existingEntry.originalUrl,
+            shortUrl: `http://localhost:3333/${existingEntry.shortCode}`,
+          };
+        }
+
+        throw error;
+      }
     }
   );
 }
