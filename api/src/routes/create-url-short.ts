@@ -31,7 +31,7 @@ export async function createURLShort(app: FastifyInstance) {
 
         return {
           originalUrl: newUrl.originalUrl,
-          shortUrl: `http://localhost:3333/${newUrl.shortCode}`,
+          shortUrl: `${newUrl.shortCode}`,
         };
       } catch (error) {
         const existingEntry = await prisma.url.findUnique({
@@ -41,7 +41,7 @@ export async function createURLShort(app: FastifyInstance) {
         if (existingEntry) {
           return {
             originalUrl: existingEntry.originalUrl,
-            shortUrl: `http://localhost:3333/${existingEntry.shortCode}`,
+            shortUrl: `${process.env.API_BASE_URL_FRONTEND}${existingEntry.shortCode}`,
           };
         }
 

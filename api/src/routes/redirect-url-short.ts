@@ -7,7 +7,7 @@ const prisma = new PrismaClient();
 
 export async function redirectURLShort(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().get(
-    "/api/:shortCode/detail",
+    "/api/:shortCode",
     {
       schema: {
         params: z.object({
@@ -23,10 +23,9 @@ export async function redirectURLShort(app: FastifyInstance) {
       });
 
       if (!urlEntry) {
-        return reply.status(404).send({ error: "URL not found in DB" });
+        return reply.status(404).send({ error: "Short URL not found in DB" });
       }
 
-      // return reply.redirect(urlEntry.originalUrl);
       return {
         originalUrl: urlEntry.originalUrl,
       };
