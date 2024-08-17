@@ -29,7 +29,7 @@ export default function Index() {
       <div className="bg-gradient-to-r from-purple-500 to-indigo-600 min-h-screen w-screen flex items-center justify-center">
         <div className="bg-white rounded-lg shadow-lg p-8 max-w-md w-full">
           <h1 className="text-3xl font-bold text-gray-800 mb-6 text-center">
-            Encurte sua URL
+            Encurte a sua URL
           </h1>
 
           <form id="url-form" className="space-y-6" onSubmit={createShortURL}>
