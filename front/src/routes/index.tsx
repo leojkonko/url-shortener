@@ -1,7 +1,7 @@
 import { FormEvent, useState } from "react";
 import { urlServer } from "../server/url-server";
 import ModalUrlShortCreated from "../components/modal-urlshort-created";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function Index() {
   const [urlOriginal, setUrlOriginal] = useState("");
@@ -13,8 +13,6 @@ export default function Index() {
     event.preventDefault();
     try {
       const response = await urlServer.createShortCode(urlOriginal);
-      console.log("Resposta da API:", response);
-      console.log("Resposta da API:", response.originalUrl + response.shortUrl);
       setShortURL(response.shortUrl);
       setIsModalUrlShortCreated(true);
     } catch (error) {

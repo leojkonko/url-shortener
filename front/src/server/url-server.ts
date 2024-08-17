@@ -1,21 +1,26 @@
 import { api } from "./api";
 
-// export type urlFields = {
-//   originalUrl: string;
-// };
-
 async function createShortCode(originalUrl: string) {
   try {
-    console.log(originalUrl);
     const { data } = await api.post("/api/url", {
       originalUrl,
     });
 
     return data;
   } catch (error) {
-    console.log(error);
     throw error;
   }
 }
 
-export const urlServer = { createShortCode };
+async function getRedirect(shortCode: string) {
+  try {
+    console.error(shortCode);
+    const { data } = await api.get(`/api/${shortCode}`);
+
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export const urlServer = { createShortCode, getRedirect };

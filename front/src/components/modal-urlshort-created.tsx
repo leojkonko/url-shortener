@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { HiCheckCircle, HiOutlineX } from "react-icons/hi";
 import API_BASE_URL_FRONTEND from "../../env.ts";
 
