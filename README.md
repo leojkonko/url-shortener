@@ -25,3 +25,20 @@ To install dependencies and run the frontend:
 ```bash
 npm install
 npm run dev
+```
+
+### Backend
+
+To install dependencies and run the backend:
+
+```bash
+npm run dev
+```
+
+### Mobile
+
+To install dependencies and run the mobile with expo:
+
+```bash
+npx expo start
+```
