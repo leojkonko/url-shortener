@@ -32,6 +32,7 @@ npm run dev
 To install dependencies and run the backend:
 
 ```bash
+npm install
 npm run dev
 ```
 
